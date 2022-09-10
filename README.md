@@ -41,9 +41,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]]( Home.png)
+<img src="Home.png" alt="Logo">
 
-This project is a use case for an ecommerce application, where we use Next.js and its features to provide am enhanced experience to the user providing a gateway payment with Stripe.
+This project is a use case for an eCommerce application, where we use Next.js and its features to provide an enhanced experience to the user by providing a payment gateway with Stripe.
 
 
 ### Built With
