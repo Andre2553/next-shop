@@ -5,7 +5,7 @@ export const HomeContainer = styled('main',{
    // gap: '3rem',
    maxWidth: 'calc(100vw - (100vw - 1180px)/2)',
    marginLeft: 'auto',
-   minHeight: 656,
+   minHeight: 600,
 });
 export const Products = styled('a',{
    background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
@@ -31,7 +31,7 @@ export const Products = styled('a',{
       alignItems: 'center',
       justifyContent: 'space-between',
       borderRadius: 6,
-
+      padding: '2rem',
       transform: 'translateY(110%)',
       opacity: 0,
       transition: 'all 0.2s ease-in-out',
