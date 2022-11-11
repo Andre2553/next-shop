@@ -1,13 +1,13 @@
 import { styled } from "..";
 
-export const HomeContainer = styled('main',{
+export const HomeContainer = styled('main', {
    display: 'flex',
    // gap: '3rem',
-   maxWidth: 'calc(100vw - (100vw - 1180px)/2)',
+   maxWidth: 'calc(100vw - (100vw - 1600px)/2)',
    marginLeft: 'auto',
-   minHeight: 600,
+   minHeight: '80vh',
 });
-export const Products = styled('a',{
+export const Products = styled('a', {
    background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
    borderRadius: 8,
    // padding: '0.25rem',
@@ -19,7 +19,7 @@ export const Products = styled('a',{
    alignItems: 'center',
    justifyContent: 'center',
 
-   img:{
+   img: {
       objectFit: 'cover',
    },
    footer: {
@@ -38,19 +38,31 @@ export const Products = styled('a',{
       overflow: 'hidden',
 
       backgroundColor: 'rgba(0,0,0,0.6)',
-
-      strong:{
+      div: {
+         display: 'grid',
+         gap: '1rem',
+         alignItems: 'stretch',
+      },
+      strong: {
          fontSize: '$lg',
          color: '$gray100',
       },
-      span:{
+      span: {
          fontSize: '$xl',
          fontWeight: 'bold',
          color: '$green300'
+      },
+      button: {
+         background: '$green500',
+         border: 'none',
+         color: '$white',
+         padding: '1rem',
+         borderRadius: 8,
+         cursor: 'pointer',
       }
    },
-   '&:hover':{
-      footer:{
+   '&:hover': {
+      footer: {
          transform: 'translateY(0)',
          opacity: 1,
       }

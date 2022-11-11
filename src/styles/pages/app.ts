@@ -11,6 +11,20 @@ export const Container = styled('div', {
 export const Header = styled('header', {
    padding: '2rem 0',
    width: '100%',
-   maxWidth: '1100px',
+   maxWidth: 'calc(100vw - (100vw - 1180px)/2)',
    margin: '0 auto',
+   display: 'flex',
+   alignItems: 'center',
+   justifyContent: 'space-between',
+   button: {
+      background: '$gray800',
+      border: 'none',
+      color: '$white',
+      padding: '1rem',
+      borderRadius: 8,
+      cursor: 'pointer',
+   },
+   a:{
+      cursor: 'pointer',
+   }
 })

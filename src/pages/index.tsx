@@ -7,7 +7,8 @@ import { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
-
+import { useState } from "react";
+import bag from '../assets/bag.svg'
 interface HomeProps {
   products: {
     id: string;
@@ -18,9 +19,14 @@ interface HomeProps {
 }
 
 export default function Home({ products }: HomeProps) {
+  const [currentSlide, setCurrentSlide] = useState(0)
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
+    initial: 0,
+    slideChanged(slider) {
+      setCurrentSlide(slider.track.details.rel)
+    },
     slides: {
-      perView: 3,
+      perView: 2,
       spacing: 48,
     },
   });
@@ -39,8 +45,11 @@ export default function Home({ products }: HomeProps) {
             <Products className="keen-slider__slide">
               <Image src={product.imageUrl} width={520} height={480} alt="" />
               <footer>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
+                <div>
+                  <strong>{product.name}</strong>
+                  <span>{product.price}</span>
+                </div>
+                <button><Image src={bag} width={25} height={25}/></button>
               </footer>
             </Products>
           </Link>

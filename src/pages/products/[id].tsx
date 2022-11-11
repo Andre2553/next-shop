@@ -11,7 +11,7 @@ import {
   ImageContainer,
   ProductContainer,
   ProductDetails,
-} from "../../styles/pages/prodcuts";
+} from "../../styles/pages/products";
 
 interface ProductProps {
   product: {
@@ -25,50 +25,58 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
-  const [isCreateingCheckoutSession, setIsCreatingCheckoutSession] = useState(false);
-  
-  async function handleBuyProduct(){
-    try{
+  const [isCreateingCheckoutSession, setIsCreatingCheckoutSession] =
+    useState(false);
+
+  async function handleBuyProduct() {
+    try {
       setIsCreatingCheckoutSession(true);
-      const response = await axios.post('/api/checkout',{
-        priceId: product.defaultPriceId
-      })
+      const response = await axios.post("/api/checkout", {
+        priceId: product.defaultPriceId,
+      });
       const { checkoutUrl } = response.data;
       window.location.href = checkoutUrl;
-
-    } catch(err){
+    } catch (err) {
       setIsCreatingCheckoutSession(false);
-      alert('Fail to redirect to checkout')
+      alert("Fail to redirect to checkout");
     }
-  }  
+  }
   return (
     <>
-        <Head>
-      <title>{product.name} | Ignite Shop</title>
-    </Head>
-    <ProductContainer>
-      <ImageContainer>
-        <Image src={product?.imageUrl || ""} width={520} height={480} alt="" />
-      </ImageContainer>
-      <ProductDetails>
-        <h1>{product?.name || <Skeleton />}</h1>
-        <span>{product?.price || <Skeleton />}</span>
-        <p>{product?.description|| <Skeleton />}</p>
-        <button disabled={isCreateingCheckoutSession} onClick={handleBuyProduct}>
-          Buy
-        </button>
-      </ProductDetails>
-    </ProductContainer>
+      <Head>
+        <title>{product?.name} | Ignite Shop</title>
+      </Head>
+      <ProductContainer>
+        <ImageContainer>
+          <Image
+            src={product?.imageUrl || ""}
+            width={520}
+            height={480}
+            alt=""
+          />
+        </ImageContainer>
+        <ProductDetails>
+          <h1>{product?.name || <Skeleton />}</h1>
+          <span>{product?.price || <Skeleton />}</span>
+          <p>{product?.description || <Skeleton />}</p>
+          <button
+            disabled={isCreateingCheckoutSession}
+            onClick={handleBuyProduct}
+          >
+            Buy
+          </button>
+        </ProductDetails>
+      </ProductContainer>
     </>
   );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  return{
+  return {
     paths: [],
     fallback: true,
-  }
-}
+  };
+};
 
 export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
   params,
