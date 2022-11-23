@@ -4,6 +4,7 @@ export const globalStyles = globalCss({
    '*': {
       margin: 0,
       padding: 0,
+      overflowX: 'hidden',
    },
    body: {
       backgroundColor: '$gray900',
