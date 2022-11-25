@@ -34,6 +34,10 @@ export function Cart(props: ICartProps) {
     return state;
   });
   const products = cart.cart.data;
+  const totalprice = new Intl.NumberFormat("au", {
+    style: "currency",
+    currency: "AUD",
+  }).format(cart.cart.totalPrice);
   const dispatch = useDispatch();
   return (
     <Container isOpen={props.isOpen.value}>
@@ -64,7 +68,7 @@ export function Cart(props: ICartProps) {
           </ListOfProducts>
           <Footer>
             <p>Quantity: {cart.cart.totalqty}</p>
-            <h2>Total: {cart.cart.totalPrice}</h2>
+            <h2>Total: {totalprice}</h2>
             <button>Checkout</button>
           </Footer>
         </>
