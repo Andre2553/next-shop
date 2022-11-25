@@ -32,7 +32,7 @@ export const ImageContainer = styled('div', {
 export const ProductDetails = styled('div', {
    display: 'flex',
    flexDirection: 'column',
-
+   
    h1: {
       fontSize: '$2xl',
       color: '$gray300',

@@ -1,12 +1,13 @@
 export interface IProduct{
-   id: number;
+   id: string;
    name: string;
-   price: number;
+   price: string;
    image: string;
-   description: string;
    qty: number;
 }
 
 export interface ICartState{
-   data: IProduct[]
+   data: IProduct[],
+   totalPrice: number,
+   totalqty: number,
 }

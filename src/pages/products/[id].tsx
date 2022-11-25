@@ -7,11 +7,13 @@ import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import Stripe from "stripe";
 import { stripe } from "../../lib/stripe";
+import { useDispatch, useSelector } from "react-redux";
 import {
   ImageContainer,
   ProductContainer,
   ProductDetails,
 } from "../../styles/pages/products";
+import { addProduct } from "../../store/modules/cart/actions";
 
 interface ProductProps {
   product: {
@@ -27,7 +29,7 @@ interface ProductProps {
 export default function Product({ product }: ProductProps) {
   const [isCreateingCheckoutSession, setIsCreatingCheckoutSession] =
     useState(false);
-
+  const dispatch = useDispatch();
   async function handleBuyProduct() {
     try {
       setIsCreatingCheckoutSession(true);
@@ -40,6 +42,18 @@ export default function Product({ product }: ProductProps) {
       setIsCreatingCheckoutSession(false);
       alert("Fail to redirect to checkout");
     }
+  }
+  function handleAddToCart() {
+    console.log("add to cart");
+    console.log(product);
+    dispatch(addProduct({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.imageUrl,
+        qty: 1,
+      },
+    ));
   }
   return (
     <>
@@ -61,7 +75,7 @@ export default function Product({ product }: ProductProps) {
           <p>{product?.description || <Skeleton />}</p>
           <button
             disabled={isCreateingCheckoutSession}
-            onClick={handleBuyProduct}
+            onClick={handleAddToCart}
           >
             Buy
           </button>

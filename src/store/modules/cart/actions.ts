@@ -2,14 +2,18 @@ import { IProduct} from "./types"
 
 export function addProduct(product: IProduct) {
    return {
-      type: "ADD_UNIVERSITY_TO_TABLE",
+      type: "ADD_PRODUCT_TO_CART",
       payload: {
          product
       }
    }
 }
-export function deleteProduct() {
+export function changeProductQty(product: IProduct, qty: number) {
    return {
-      type: "DELETE_PRODUCT_FROM_CART"
+      type: "CHANGE_PRODUCT_QTY",
+      payload: {
+         product,
+         qty,
+      }
    }
 }

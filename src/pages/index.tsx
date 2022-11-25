@@ -8,7 +8,11 @@ import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
 import { useState } from "react";
-import bag from '../assets/bag.svg'
+import bag from "../assets/bag.svg";
+import { useDispatch } from "react-redux";
+import { IProduct } from "../store/modules/cart/types";
+import { addProduct } from "../store/modules/cart/actions";
+
 interface HomeProps {
   products: {
     id: string;
@@ -19,22 +23,27 @@ interface HomeProps {
 }
 
 export default function Home({ products }: HomeProps) {
-  const [currentSlide, setCurrentSlide] = useState(0)
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
     slideChanged(slider) {
-      setCurrentSlide(slider.track.details.rel)
+      setCurrentSlide(slider.track.details.rel);
     },
     slides: {
       perView: 2,
       spacing: 48,
     },
   });
+  const dispatch = useDispatch();
+  function addToCartHandler(p: IProduct) {
+    dispatch(addProduct(p));
+  }
+
   return (
     <>
-    <Head>
-      <title>Home | Ignite Shop</title>
-    </Head>
+      <Head>
+        <title>Home | Ignite Shop</title>
+      </Head>
       <HomeContainer ref={sliderRef} className="keen-slider">
         {products.map((product) => (
           <Link
@@ -49,7 +58,20 @@ export default function Home({ products }: HomeProps) {
                   <strong>{product.name}</strong>
                   <span>{product.price}</span>
                 </div>
-                <button><Image src={bag} width={25} height={25}/></button>
+                <button
+                  onClick={(e) =>{
+                    e.stopPropagation();
+                    addToCartHandler({
+                      id: product.id,
+                      name: product.name,
+                      price: product.price,
+                      image: product.imageUrl,
+                      qty: 1,
+                    });
+                  }}
+                >
+                  <Image src={bag} width={25} height={25} />
+                </button>
               </footer>
             </Products>
           </Link>
