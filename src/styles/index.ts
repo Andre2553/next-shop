@@ -21,5 +21,10 @@ export const { config, styled, globalCss, keyframes, getCssText, theme, createTh
          '2xl': '2rem',
       }
 
-   }
+   },
+   media: {
+      sm: "(max-width: 767px)",
+      md: "(min-width: 768px) and (max-width: 899px)",
+      lg: "(min-width: 900px) and (max-width: 1023px)",
+    },
 })

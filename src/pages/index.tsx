@@ -71,7 +71,7 @@ export default function Home({ products }: HomeProps) {
                     });
                   }}
                 >
-                  <Image src={bag} width={25} height={25} />
+                  <Image src={bag} width={25} height={25} alt="" />
                 </button>
               </footer>
             </Products>

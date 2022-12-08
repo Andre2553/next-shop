@@ -1,29 +1,21 @@
 
-import { keyframes } from "@stitches/react";
 import { styled } from "..";
-//absolute container on the right of the screen
-const MoveLeft = keyframes({
-   from: { transform: 'translate(100%, 0)', visibility: 'hidden', },
-   to: { transform: 'translate(0, 0)', visibility: 'visible',},
- });
- const MoveRight = keyframes({
-   from: { transform: 'translate(0, 0)', visibility: 'visible', },
-   to: { transform: 'translate(100%, 0)', visibility: 'hidden', },
- });
+
+
 export const Container = styled('div', {
 
    position: 'absolute',
    top: 0,
    right: 0,
-   padding: '2rem',
+   // padding: '2rem',
    bottom: 0,
+   width: 0,
+   transition: '0.5s',
    justifyContent: 'center',
-   width: '30vw',
-   minWidth: '300px',
    backgroundColor: '$gray800',
    zIndex: 999,
    // animation:`${scaleUp} 200ms`,
-   opacity: 1,
+   
 
    h1: {
       padding: '2rem  0  0 2rem  ',
@@ -32,15 +24,20 @@ export const Container = styled('div', {
    variants: {
       isOpen: {
          'true': {
-            animation: `${MoveLeft} 0.3s ease-in-out`,
+
+            width: '30vw',
+            padding: '2rem',
+            opacity: 1,
+            '@sm': {
+               width: '80vw',
+            },
          },
          'false':{
-            animation: `${MoveRight} 0.3s ease-in-out `,
-            animationIterationCount: 1,
-            transform: 'translate(100%, 0)'
+            width: 0,
+            opacity: 0,
          },
          'default': {
-            display: 'none',
+            
          }
       }
    },
