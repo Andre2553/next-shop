@@ -27,22 +27,9 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
-  const [isCreateingCheckoutSession, setIsCreatingCheckoutSession] =
-    useState(false);
+  
   const dispatch = useDispatch();
-  async function handleBuyProduct() {
-    try {
-      setIsCreatingCheckoutSession(true);
-      const response = await axios.post("/api/checkout", {
-        priceId: product.defaultPriceId,
-      });
-      const { checkoutUrl } = response.data;
-      window.location.href = checkoutUrl;
-    } catch (err) {
-      setIsCreatingCheckoutSession(false);
-      alert("Fail to redirect to checkout");
-    }
-  }
+  
   function handleAddToCart() {
     console.log("add to cart");
     console.log(product);
@@ -51,6 +38,7 @@ export default function Product({ product }: ProductProps) {
         name: product.name,
         price: product.price,
         image: product.imageUrl,
+        defaultPriceId: product.defaultPriceId,
         qty: 1,
       },
     ));
@@ -74,7 +62,7 @@ export default function Product({ product }: ProductProps) {
           <span>{product?.price || <Skeleton />}</span>
           <p>{product?.description || <Skeleton />}</p>
           <button
-            disabled={isCreateingCheckoutSession}
+
             onClick={handleAddToCart}
           >
             Buy

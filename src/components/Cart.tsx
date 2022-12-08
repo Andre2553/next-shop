@@ -3,6 +3,7 @@ import {
   Container,
   Footer,
   ImageContainer,
+  IsEnptyText,
   ListOfProducts,
   Product,
   QuantityButton,
@@ -14,6 +15,8 @@ import { IState } from "../store";
 import { IProduct } from "../store/modules/cart/types";
 import { useDispatch, useSelector } from "react-redux";
 import { changeProductQty } from "../store/modules/cart/actions";
+import { useState } from "react";
+import axios from "axios";
 interface ICartProps {
   cartOpenHandler: () => void;
   isOpen: CartStatus;
@@ -22,6 +25,9 @@ interface CartStatus {
   value: "false" | "true" | "default";
 }
 export function Cart(props: ICartProps) {
+  const [isCreateingCheckoutSession, setIsCreatingCheckoutSession] =
+    useState(false);
+
   function decreaseQtyHandler(p: IProduct) {
     console.log("decrease");
     dispatch(changeProductQty(p, p.qty - 1));
@@ -38,11 +44,31 @@ export function Cart(props: ICartProps) {
     style: "currency",
     currency: "AUD",
   }).format(cart.cart.totalPrice);
+
+  async function handleGoToCheckout() {
+    try {
+      setIsCreatingCheckoutSession(true);
+      const line_items = products.map((p) => {
+        return {
+          price: p.defaultPriceId,
+          quantity: p.qty,
+        };
+      });
+      const response = await axios.post("/api/checkout", {
+        line_items,
+      });
+      const { checkoutUrl } = response.data;
+      window.location.href = checkoutUrl;
+    } catch (err) {
+      setIsCreatingCheckoutSession(false);
+      alert("Fail to redirect to checkout");
+    }
+  }
   const dispatch = useDispatch();
   return (
     <Container isOpen={props.isOpen.value}>
       <CloseButton onClick={props.cartOpenHandler}>
-        <Image src={closeIcon} />
+        <Image src={closeIcon} alt="close icon" />
       </CloseButton>
       <h1>Cart</h1>
       {products.length > 0 ? (
@@ -69,11 +95,16 @@ export function Cart(props: ICartProps) {
           <Footer>
             <p>Quantity: {cart.cart.totalqty}</p>
             <h2>Total: {totalprice}</h2>
-            <button>Checkout</button>
+            <button
+              disabled={isCreateingCheckoutSession}
+              onClick={() => handleGoToCheckout()}
+            >
+              Checkout
+            </button>
           </Footer>
         </>
       ) : (
-        <p>Cart is empty</p>
+        <IsEnptyText>Cart is empty</IsEnptyText>
       )}
     </Container>
   );

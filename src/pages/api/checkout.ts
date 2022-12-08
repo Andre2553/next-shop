@@ -4,12 +4,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { stripe } from "../../lib/stripe";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { priceId } = req.body;
+  const { line_items } = req.body;
+  console.log(line_items);
   if(req.method !== 'POST'){
     res.setHeader('Allow', 'POST');
     res.status(405).end('Method not allowed');
   }
-  if(!priceId){
+  if(!line_items){
     return res.status(400).json({error: 'Price ID is required'})
   }
 
@@ -19,12 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     mode: 'payment',
     success_url: success_url,
     cancel_url: cancel_url,
-    line_items: [
-      {
-        price: priceId,
-        quantity: 1,
-      }
-    ],
+    line_items: line_items,
 
   })
   return res.status(201).json({

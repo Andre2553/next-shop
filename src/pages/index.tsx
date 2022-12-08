@@ -19,6 +19,7 @@ interface HomeProps {
     name: string;
     price: string;
     imageUrl: string;
+    defaultPriceId: string;
   }[];
 }
 
@@ -67,6 +68,7 @@ export default function Home({ products }: HomeProps) {
                       name: product.name,
                       price: product.price,
                       image: product.imageUrl,
+                      defaultPriceId: product.defaultPriceId,
                       qty: 1,
                     });
                   }}
@@ -96,6 +98,7 @@ export const getStaticProps: GetStaticProps = async () => {
         currency: "AUD",
       }).format(price.unit_amount / 100),
       imageUrl: product.images[0],
+      defaultPriceId: price.id,
     };
   });
   return {

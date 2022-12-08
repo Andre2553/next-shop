@@ -4,6 +4,7 @@ export interface IProduct{
    price: string;
    image: string;
    qty: number;
+   defaultPriceId?: string;
 }
 
 export interface ICartState{

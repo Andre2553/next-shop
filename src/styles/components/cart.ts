@@ -50,6 +50,7 @@ export const CloseButton = styled('button', {
    background: 'content-box',
    position: 'relative',
    cursor: 'pointer',
+   border: 'none',
    img: {
       objectFit: 'cover',
    },
@@ -130,6 +131,14 @@ export const QuantityButton = styled('div', {
 
       },
    }
+});
+
+
+export const IsEnptyText = styled('p', {
+
+      fontSize: '$md',
+      textAlign: 'center',
+      color: '$gray100',
 });
 
 export const Footer = styled('footer', {
